@@ -1,4 +1,5 @@
 import json
+from json_delta import diff
 import difflib
 
 # Cargar los datos de los archivos JSON
@@ -6,8 +7,17 @@ def cargar_json(nombre_archivo):
     with open(nombre_archivo, "r", encoding="utf-8") as archivo:
         return json.load(archivo)
 
-# Comparar dos estructuras JSON y calcular la similitud
+# Comparar dos estructuras JSON y destacar las diferencias que faltan en el convertido
 def comparar_json(json1, json2):
+    # Calcula la diferencia entre las estructuras JSON
+    differences = diff(json1, json2)
+
+    # Imprime las diferencias encontradas que faltan en datos.json
+    #print("Diferencias encontradas (que faltan en datos.json):")
+    #for item in differences:
+     #   if item[0] == "add":
+      #      print(f"+ {item[1]}: {item[2]}")
+
     # Convierte las estructuras JSON en cadenas JSON
     str_json1 = json.dumps(json1, sort_keys=True, indent=4, ensure_ascii=False)
     str_json2 = json.dumps(json2, sort_keys=True, indent=4, ensure_ascii=False)
